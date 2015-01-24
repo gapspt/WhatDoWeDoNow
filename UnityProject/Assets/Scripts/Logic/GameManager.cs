@@ -36,11 +36,17 @@ public class GameManager : MonoBehaviour {
 
     void OnEnable()
     {
+        if (Instance != this)
+            return;
+
         InitThreadQueue();
     }
 
     void OnDisable()
     {
+        if (Instance != this)
+            return;
+
         DestroyThreadQueue();
     }
 
