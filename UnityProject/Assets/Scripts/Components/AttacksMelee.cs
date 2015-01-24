@@ -27,7 +27,8 @@ public class AttacksMelee : Attack {
 	}
 	
 	private IEnumerator clearAttackCounter() {
-		yield return new WaitForSeconds(3);
+		yield return new WaitForSeconds(5);
+		Debug.Log ("clearAttackCounter");
 		counter = 0;
 	}
 	
@@ -35,7 +36,7 @@ public class AttacksMelee : Attack {
 	{	
 		counter = (counter + 1)%5 + 1;
 		if (!_player.isAttacking && counter <= 5){
-			//Debug.Log("animation attack"+counter);
+			Debug.Log("animation attack"+counter);
 			_animator.Play(Animator.StringToHash("attack"+counter));
 		}
 		

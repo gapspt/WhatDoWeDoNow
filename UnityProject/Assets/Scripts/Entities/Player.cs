@@ -32,8 +32,10 @@ public class Player : MonoBehaviour {
     public bool isAttacking = false;
     
     public float health = 100;
-
-    void Awake()
+    
+	public GameObject particleObject;
+		
+  void Awake()
     {
         _animator = GetComponent<Animator>();
         _controller = GetComponent<CharacterController2D>();
@@ -145,6 +147,19 @@ public class Player : MonoBehaviour {
 	public void shakeCamera()
 	{
 		Camera.main.GetComponent<CameraShake>().Shake();
+		
+		if (particleObject == null) return;
+		
+		float dirX;
+		float dirY;
+		GameObject particle;
+		for(int i=0;i<30;i++){
+			dirX = Random.Range(-1.0f, 1.0f) * 100;
+			dirY = Random.Range(0.0f, 1.0f) * 1000;
+			particle = ((GameObject) Instantiate(particleObject, transform.position, Quaternion.identity));
+			particle.GetComponent<Rigidbody2D>().AddForce(new Vector2(dirX, dirY));
+			
+		}
 	}
 	
 	public void attack(float damage)
