@@ -11,13 +11,12 @@ public class AttacksMelee : Attack {
 	override protected void init()
 	{
 		hitbox = (BoxCollider2D) gameObject.GetComponent<BoxCollider2D>();
-		hitbox.enabled = false;
+		//hitbox.enabled = false;
 		hitbox.isTrigger = true;
 	}
 	
 	override protected void onUpdate()
 	{
-		
 	}
 	
 	private IEnumerator clearAttack() {
@@ -26,26 +25,22 @@ public class AttacksMelee : Attack {
 	}
 	
 	private IEnumerator clearAttackCounter() {
-		yield return new WaitForSeconds(2);
+		yield return new WaitForSeconds(3);
 		counter = 0;
-		_player.isAttacking = false;
 	}
 	
 	override public void onAttackTrigger()
 	{
-		if (!hitbox.enabled){
-			Debug.Log("Attacking for " + duration);
+		/*if (!hitbox.enabled){
 			hitbox.enabled = true;
 			StopCoroutine("clearAttack");
 			StartCoroutine("clearAttack");
-		}
+		}*/
 		
-		counter += 1;
-		if (counter < 5){
-			Debug.Log("animation attack"+counter);
+		counter = (counter + 1)%5 + 1;
+		if (!_player.isAttacking && counter <= 5){
+			//Debug.Log("animation attack"+counter);
 			_animator.Play(Animator.StringToHash("attack"+counter));
-		} else {
-			_animator.Play(Animator.StringToHash("attack1"));
 		}
 		
 		_player.isAttacking = true;
@@ -56,7 +51,7 @@ public class AttacksMelee : Attack {
 	
 	void OnTriggerEnter2D(Collider2D col)
 	{
-		Destroy(col.gameObject);
+		//Destroy(col.gameObject);
 	}
 	
 }

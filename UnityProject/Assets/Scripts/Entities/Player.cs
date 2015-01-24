@@ -80,7 +80,7 @@ public class Player : MonoBehaviour {
             if (transform.localScale.x < 0f)
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
 
-            if (_controller.isGrounded)
+            if (_controller.isGrounded && !isAttacking)
                 _animator.Play(Animator.StringToHash("Run"));
         }
         else if (_inputController.LEFT)// pressed(PlayerController.ACTIONS.LEFT))//if (Input.GetKey(KeyCode.LeftArrow))
@@ -89,7 +89,7 @@ public class Player : MonoBehaviour {
             if (transform.localScale.x > 0f)
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
 
-            if (_controller.isGrounded)
+			if (_controller.isGrounded && !isAttacking)
                 _animator.Play(Animator.StringToHash("Run"));
         }
         else
