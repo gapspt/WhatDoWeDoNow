@@ -51,7 +51,9 @@ public class AttacksMelee : Attack {
 	
 	void OnTriggerEnter2D(Collider2D col)
 	{
+		if (col.gameObject.tag == attackTag){
+			col.gameObject.GetComponent<Player>().kill();
+		}
 		//Destroy(col.gameObject);
 	}
-	
 }

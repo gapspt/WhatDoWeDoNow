@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Attack : MonoBehaviour {
 	
+	public string attackTag;
+	
 	private PlayerController _inputController;
 	protected Animator _animator;
 	protected Player _player;
@@ -33,4 +35,5 @@ public class Attack : MonoBehaviour {
 	virtual public void onAttackTrigger()
 	{
 	}
+
 }

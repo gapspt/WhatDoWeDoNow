@@ -138,5 +138,10 @@ public class Player : MonoBehaviour {
 	{
 		Camera.main.GetComponent<CameraShake>().Shake();
 	}
+	
+	public void kill()
+	{
+		Destroy (gameObject);
+	}
 
 }
