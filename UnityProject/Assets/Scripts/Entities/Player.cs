@@ -22,6 +22,8 @@ public class Player : MonoBehaviour {
     public Vector3 _velocity;
     
     public bool isAttacking = false;
+    
+    public float health = 100;
 
 	// Use this for initialization
 	void Start () {
@@ -135,6 +137,11 @@ public class Player : MonoBehaviour {
 	
 	void OnCollisionEnter2D(Collision2D col){
 		Debug.Log ("attack collision parent");
+	}
+	
+	public void shakeCamera()
+	{
+		Camera.main.GetComponent<CameraShake>().Shake();
 	}
 
 }
