@@ -10,7 +10,8 @@ public class AttacksMelee : Attack {
 	override protected void init()
 	{
 		hitbox = (BoxCollider2D) gameObject.GetComponent<BoxCollider2D>();
-		hitbox.enabled = true;
+		hitbox.enabled = false;
+		hitbox.isTrigger = true;
 	}
 	
 	override protected void onUpdate()
@@ -32,13 +33,8 @@ public class AttacksMelee : Attack {
 		}
 	}
 	
-	void OnTriggerEnter(Collider other) {
-		Debug.Log ("on trigger enter");
-		Destroy(other.gameObject);
-	}
-	
-	void OnCollisionEnter2D(Collision2D col){
-		Debug.Log ("attack collision");
+	void OnTriggerEnter2D(Collider2D col)
+	{
 		Destroy(col.gameObject);
 	}
 	
