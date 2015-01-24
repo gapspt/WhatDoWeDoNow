@@ -2,8 +2,16 @@
 using System.Collections;
 
 public class Player : MonoBehaviour {
-
-    // movement config
+	
+	public enum TypeOfPlayer
+	{
+		PLAYER,
+		NPC
+	}
+	
+	public TypeOfPlayer typeOfPlayer = TypeOfPlayer.PLAYER;
+	
+		// movement config
     public float gravity = -25f;
     public float runSpeed = 8f;
     public float groundDamping = 20f; // how fast do we change direction? higher means faster
@@ -139,9 +147,20 @@ public class Player : MonoBehaviour {
 		Camera.main.GetComponent<CameraShake>().Shake();
 	}
 	
+	public void attack(float damage)
+	{
+		health -= damage;
+		if (health <= 0){
+			kill();
+		}
+	}
+	
 	public void kill()
 	{
-		Destroy (gameObject);
+		if (typeOfPlayer == TypeOfPlayer.NPC)
+		{
+			Destroy(gameObject);
+		}
 	}
 
 }
