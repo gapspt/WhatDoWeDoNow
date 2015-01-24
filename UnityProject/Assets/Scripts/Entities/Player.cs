@@ -20,6 +20,8 @@ public class Player : MonoBehaviour {
     private Animator _animator;
     private RaycastHit2D _lastControllerColliderHit;
     public Vector3 _velocity;
+    
+    public bool isAttacking = false;
 
 	// Use this for initialization
 	void Start () {
@@ -102,7 +104,9 @@ public class Player : MonoBehaviour {
                 }
                 else
                 {
-                    _animator.Play(Animator.StringToHash("Idle"));
+					if (!isAttacking){
+                    	_animator.Play(Animator.StringToHash("idle_1"));
+                    }
                 }
         }
 

@@ -4,10 +4,13 @@ using System.Collections;
 public class Attack : MonoBehaviour {
 	
 	private PlayerController _inputController;
+	protected Animator _animator;
+	protected Player _player;
 	// Use this for initialization
 	void Start () {
 		_inputController = gameObject.GetComponentInParent<PlayerController>();
-		
+		_animator = gameObject.GetComponentInParent<Animator>();
+		_player = gameObject.GetComponentInParent<Player>();
 		init ();
 	}
 	
