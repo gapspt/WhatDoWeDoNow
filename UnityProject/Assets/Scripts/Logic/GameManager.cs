@@ -73,11 +73,10 @@ public class GameManager : MonoBehaviour {
             Quaternion.identity);
     }
 
-    public static void StartGame()
+    public static void StartNewGame()
     {
-
+        Application.LoadLevel("GameScene");
     }
-
 
 
     #region Action Queue
