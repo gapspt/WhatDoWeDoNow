@@ -10,7 +10,7 @@ public class Player : MonoBehaviour {
     public float inAirDamping = 5f;
     public float jumpHeight = 3f;
 
-	public int jumpCounter = 0;
+    public int jumpCounter = 0;
 
     [HideInInspector]
     private float normalizedHorizontalSpeed = 0;
@@ -22,10 +22,6 @@ public class Player : MonoBehaviour {
     public Vector3 _velocity;
     
     public bool isAttacking = false;
-
-	// Use this for initialization
-	void Start () {
-	}
 
     void Awake()
     {
@@ -64,17 +60,16 @@ public class Player : MonoBehaviour {
     }
 
     #endregion
-	
-	// Update is called once per frame
-	void Update () {
+    
+    // Update is called once per frame
+    void Update () {
         // grab our current _velocity to use as a base for all calculations
         _velocity = _controller.velocity;
 
         if (_controller.isGrounded)
             _velocity.y = 0;
 
-        if (_inputController.pressed(PlayerController.ACTIONS.RIGHT))
-        //if (Input.GetKey(KeyCode.RightArrow))
+        if (_inputController.RIGHT)// pressed(PlayerController.ACTIONS.RIGHT))//if (Input.GetKey(KeyCode.RightArrow))
         {
             normalizedHorizontalSpeed = 1;
             if (transform.localScale.x < 0f)
@@ -98,7 +93,7 @@ public class Player : MonoBehaviour {
 
             if (_controller.isGrounded)
                 
-                if (_inputController.pressed(PlayerController.ACTIONS.UP))
+                if (_inputController.UP)// pressed(PlayerController.ACTIONS.UP))
                 {
                     _animator.Play(Animator.StringToHash("LookUp"));
                 }
@@ -125,16 +120,6 @@ public class Player : MonoBehaviour {
         _velocity.y += gravity * Time.deltaTime;
 
         _controller.move(_velocity * Time.deltaTime);
-	}
-	
-	
-	void OnTriggerEnter(Collider other) {
-		Debug.Log ("on trigger enter parent");
-		
-	}
-	
-	void OnCollisionEnter2D(Collision2D col){
-		Debug.Log ("attack collision parent");
-	}
+    }
 
 }

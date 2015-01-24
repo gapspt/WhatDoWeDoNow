@@ -49,10 +49,12 @@ public class PlayerController : MonoBehaviour
     
     public bool ATTACK_1
     {
-    	get { return pressed (ACTIONS.ATTACK_1); }
+        get { return pressed (ACTIONS.ATTACK_1); }
     }
 
     public int gamepadNum = 0;
+
+    public bool WaitForProcessingInput = false;
 
     // Use this for initialization
     void Start()
@@ -74,16 +76,18 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        initState();
+        if (controller != ControllerMapping.CONTROLLERS.SIMULATED)
+        {
+            initState();
+        }
 
         #region GAMEPADS
 
         if (controller == ControllerMapping.CONTROLLERS.GAMEPAD_1) { gamepadNum = 0; }
-        else if (controller == ControllerMapping.CONTROLLERS.GAMEPAD_2) { gamepadNum = -1; }
+        else if (controller == ControllerMapping.CONTROLLERS.GAMEPAD_2) { gamepadNum = 1; }
         else
         {
             gamepadNum = -1;
-
         }
         
         if (gamepadNum >= 0)
@@ -114,6 +118,7 @@ public class PlayerController : MonoBehaviour
         {
             handleKeyAction(val, _state[val]);
         }
+        WaitForProcessingInput = false;
     }
 
     void LateUpdate()
@@ -208,5 +213,15 @@ public class PlayerController : MonoBehaviour
         _state[ACTIONS.DOWN] |= Input.GetKey(ControllerMapping.Keyboards[controller].DOWN);
 		_state[ACTIONS.ATTACK_1] |= Input.GetKey(ControllerMapping.Keyboards[controller].ATTACK_1);
 		_state[ACTIONS.ATTACK_2] |= Input.GetKey(ControllerMapping.Keyboards[controller].ATTACK_2);
+    }
+
+    public bool GetAction(ACTIONS action)
+    {
+        return _state[action];
+    }
+
+    public void SetAction(ACTIONS action, bool pressed)
+    {
+        _state[action] = pressed;
     }
 }

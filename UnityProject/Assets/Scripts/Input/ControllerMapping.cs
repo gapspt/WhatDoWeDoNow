@@ -10,6 +10,7 @@ public class ControllerMapping {
         GAMEPAD_2,
         KEYBOARD_1,
         KEYBOARD_2,
+        SIMULATED,
     }
 
     public static Dictionary<CONTROLLERS, BaseKeyboard> Keyboards;
@@ -20,5 +21,5 @@ public class ControllerMapping {
         Keyboards.Add(CONTROLLERS.KEYBOARD_1, BaseKeyboard.createDefaultKeyboard1());
         Keyboards.Add(CONTROLLERS.KEYBOARD_2, BaseKeyboard.createDefaultKeyboard2());
     }
-	
+    
 }
