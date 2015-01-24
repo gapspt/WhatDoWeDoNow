@@ -13,22 +13,25 @@ public class GameManager : MonoBehaviour {
     public GameObject[] TopNPCs;
     public GameObject[] BottomNPCs;
 
+    public int TopNPCsKilled = 0;
+    public int BottomNPCsKilled = 0;
+
     void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            if (Application.loadedLevelName == "GameScene")
+            {
+                StartNewGame();
+            }
         }
         else if (Instance != this)
         {
             Destroy(gameObject);
         }
-    }
-
-    void Start()
-    {
-        StartCoroutine(TempSpawnStuff());
     }
 
     void OnEnable()
@@ -41,41 +44,50 @@ public class GameManager : MonoBehaviour {
         DestroyThreadQueue();
     }
 
-    IEnumerator TempSpawnStuff()
-    {
-        while (enabled)
-        {
-            yield return new WaitForSeconds(1);
-            StartCoroutine(DelayedSpawnNPC(Instance.TopNPCs, Instance.TopSpawnPoints));
-            yield return new WaitForSeconds(1);
-            StartCoroutine(DelayedSpawnNPC(Instance.BottomNPCs, Instance.BottomSpawnPoints));
-        }
-    }
-
     public void KillTopNPC(GameObject npc)
     {
+        TopNPCsKilled++;
+
         // TODO some more stuff
 
-        StartCoroutine(DelayedSpawnNPC(Instance.TopNPCs, Instance.TopSpawnPoints));
+        StartCoroutine(DelayedSpawnNPC(TopNPCs, TopSpawnPoints));
+
+        if (TopNPCsKilled % 10 == 0)
+        {
+            StartCoroutine(DelayedSpawnNPC(TopNPCs, TopSpawnPoints));
+        }
     }
     public void KillBottomNPC(GameObject npc)
     {
+        BottomNPCsKilled++;
+
         // TODO some more stuff
 
-        StartCoroutine(DelayedSpawnNPC(Instance.BottomNPCs, Instance.BottomSpawnPoints));
+        StartCoroutine(DelayedSpawnNPC(BottomNPCs, BottomSpawnPoints));
+
+        if (BottomNPCsKilled % 10 == 0)
+        {
+            StartCoroutine(DelayedSpawnNPC(BottomNPCs, BottomSpawnPoints));
+        }
     }
 
     private IEnumerator DelayedSpawnNPC(GameObject[] npcs, Transform[] spawnPoints)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
+        SpawnNPC(npcs, spawnPoints);
+    }
+    private void SpawnNPC(GameObject[] npcs, Transform[] spawnPoints)
+    {
         Instantiate(npcs[UnityEngine.Random.Range(0, npcs.Length)],
             spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].position,
             Quaternion.identity);
     }
 
-    public static void StartNewGame()
+    public void StartNewGame()
     {
         Application.LoadLevel("GameScene");
+        StartCoroutine(DelayedSpawnNPC(TopNPCs, TopSpawnPoints));
+        StartCoroutine(DelayedSpawnNPC(BottomNPCs, BottomSpawnPoints));
     }
 
 
