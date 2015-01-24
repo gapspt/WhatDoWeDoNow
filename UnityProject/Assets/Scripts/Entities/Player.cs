@@ -122,6 +122,15 @@ public class Player : MonoBehaviour {
 
         _controller.move(_velocity * Time.deltaTime);
 	}
-
+	
+	
+	void OnTriggerEnter(Collider other) {
+		Debug.Log ("on trigger enter parent");
+		
+	}
+	
+	void OnCollisionEnter2D(Collision2D col){
+		Debug.Log ("attack collision parent");
+	}
 
 }
