@@ -47,6 +47,8 @@ public class AttacksMelee : Attack {
 	
 	void OnTriggerEnter2D(Collider2D col)
 	{
+		//Debug.Log ("colliding with " + col.gameObject.name + " tag:" + col.gameObject.tag);
+		
 		if (col.gameObject.tag == attackTag){
 			col.gameObject.GetComponent<Player>().attack(attackDamage);
 		}
