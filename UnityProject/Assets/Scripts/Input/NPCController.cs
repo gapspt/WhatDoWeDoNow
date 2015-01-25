@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class NPCController : MonoBehaviour
 {
     private PlayerController playerController;
-    private CharacterController2D characterController;
+    //private CharacterController2D characterController;
 
     private bool isProcessingAI = false;
 
@@ -17,7 +17,7 @@ public class NPCController : MonoBehaviour
     void Awake()
     {
         playerController = GetComponent<PlayerController>();
-        characterController = GetComponent<CharacterController2D>();
+        //characterController = GetComponent<CharacterController2D>();
         IsGoingLeft = Random.Range(0, 2) == 0;
     }
 
@@ -123,7 +123,6 @@ public class NPCController : MonoBehaviour
             if ((!IsGoingLeft && trigger.ShouldGoLeft(IsGoingLeft))
                 || (IsGoingLeft && trigger.ShouldGoRight(IsGoingLeft)))
             {
-                print("reverse");
                 IsGoingLeft = !IsGoingLeft;
             }
         }
