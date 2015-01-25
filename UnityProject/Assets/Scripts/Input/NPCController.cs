@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections.Generic;
-using System.Threading;
 
 public class NPCController : MonoBehaviour
 {
@@ -10,6 +8,9 @@ public class NPCController : MonoBehaviour
 
     private bool isProcessingAI = false;
 
+    public bool IsGoingLeft;
+    public bool DoJump = false;
+
     // Thread safe variables (because the original variables cannot be accessed outside of the main thread)
     private bool tsEnabled;
 
@@ -17,6 +18,7 @@ public class NPCController : MonoBehaviour
     {
         playerController = GetComponent<PlayerController>();
         characterController = GetComponent<CharacterController2D>();
+        IsGoingLeft = Random.Range(0, 2) == 0;
     }
 
     void Update () {
@@ -71,6 +73,7 @@ public class NPCController : MonoBehaviour
     private void ProcessAI(ref bool goLeft, ref bool goRight, ref bool goUp, ref bool goDown,
         ref bool doJump, ref bool doAttack1, ref bool doAttack2)
     {
+        /*
         if (goLeft && characterController.collisionState.left)
         {
             goRight = true;
@@ -93,12 +96,36 @@ public class NPCController : MonoBehaviour
             goLeft = true;
             goRight = false;
         }
+        */
 
+        goLeft = IsGoingLeft;
+        goRight = !IsGoingLeft;
+        doJump = DoJump;
+        doAttack1 = !doAttack1;
+
+        doAttack2 = false;
         goUp = false;
         goDown = false;
-        //doJump = !doJump;
-        doAttack1 = !doAttack1;
-        doAttack2 = false;
+
+        DoJump = false;
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+
+        foreach (var trigger in other.transform.GetComponentsInChildren<NPCTrigger>())
+        {
+            if (!DoJump && trigger.ShouldJump(IsGoingLeft))
+            {
+                DoJump = true;
+            }
+
+            if ((!IsGoingLeft && trigger.ShouldGoLeft(IsGoingLeft))
+                || (IsGoingLeft && trigger.ShouldGoRight(IsGoingLeft)))
+            {
+                print("reverse");
+                IsGoingLeft = !IsGoingLeft;
+            }
+        }
+    }
 }
