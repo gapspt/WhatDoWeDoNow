@@ -23,26 +23,37 @@ public class GameManager : MonoBehaviour {
     
     public static GameManager instance;
     public int score = 0;
+    public int ScorePerKill = 2;
    
     public static void heavenScores(){
-        GameManager.Instance.score -= 1;
-        
-        checkScore();
+        Instance.score -= Instance.ScorePerKill;
+
+        Instance.checkScore();
     }
     
     public static void hellScores(){
-        GameManager.Instance.score += 1;
+        Instance.score += Instance.ScorePerKill;
         
-        checkScore();
+        Instance.checkScore();
     }
     
-    private static void checkScore()
+    private void checkScore()
     {
         if (getScore() > 100){
             Debug.Log ("Hell wins");
-        } else if (getScore() < -100) {
-            Debug.Log ("Heaven wins");
+            StartCoroutine(DelayedStartMainMenu());
         }
+        else if (getScore() < -100)
+        {
+            Debug.Log ("Heaven wins");
+            StartCoroutine(DelayedStartMainMenu());
+        }
+    }
+
+    private IEnumerator DelayedStartMainMenu()
+    {
+        yield return new WaitForSeconds(3.0f);
+        Application.LoadLevel(0);
     }
     
     public static int getScore(){
