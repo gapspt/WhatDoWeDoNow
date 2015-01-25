@@ -23,10 +23,23 @@ public class GameManager : MonoBehaviour {
    
 	public static void heavenScores(){
 		GameManager.instance.score -= 1;
+		
+		checkScore();
 	}
 	
 	public static void hellScores(){
 		GameManager.instance.score += 1;
+		
+		checkScore();
+	}
+	
+	private static void checkScore()
+	{
+		if (getScore > 100){
+			Debug.Log ("Hell wins");
+		} else if (getScore < -100) {
+			Debug.Log ("Heaven wins");
+		}
 	}
 	
 	public static int getScore(){
