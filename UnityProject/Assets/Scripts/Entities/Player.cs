@@ -42,6 +42,7 @@ public class Player : MonoBehaviour {
 	public GameObject particleObject;
 	
 	private bool _doJump = false;
+	private bool _doDash = false;
 		
   void Awake()
     {
@@ -94,7 +95,7 @@ public class Player : MonoBehaviour {
             normalizedHorizontalSpeed = 1;
             if (transform.localScale.x < 0f)
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-
+			
             if (_controller.isGrounded && !isAttacking)
                 _animator.Play(Animator.StringToHash("Run"));
         }
@@ -132,6 +133,11 @@ public class Player : MonoBehaviour {
 			//_animator.Play(Animator.StringToHash("Jump"));
 			_doJump = false;
         }
+        
+		if (_doDash){
+			_doDash = false;
+			_velocity.x += 50*transform.localScale.x;
+		}
 
         // apply horizontal speed smoothing it
         var smoothedMovementFactor = _controller.isGrounded ? groundDamping : inAirDamping; // how fast do we change direction?
@@ -147,6 +153,11 @@ public class Player : MonoBehaviour {
 	public void doJump()
 	{
 		_doJump = true;
+	}
+	
+	public void doDash()
+	{
+		_doDash = true;
 	}
 	
 	
