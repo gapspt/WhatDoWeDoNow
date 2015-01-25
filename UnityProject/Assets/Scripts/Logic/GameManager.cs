@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour {
 
         StartCoroutine(DelayedSpawnNPC(TopNPCs, TopSpawnPoints));
 
-        if (TopNPCsKilled % 10 == 0)
+        if (TopNPCsKilled % 5 == 0)
         {
             StartCoroutine(DelayedSpawnNPC(TopNPCs, TopSpawnPoints));
         }
