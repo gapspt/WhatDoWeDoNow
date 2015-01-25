@@ -86,7 +86,6 @@ public class GameManager : MonoBehaviour {
 
     public void KilledTopNPC(GameObject npc)
     {
-        print("D T");
         TopNPCsKilled++;
 
         // TODO some more stuff
@@ -102,7 +101,6 @@ public class GameManager : MonoBehaviour {
     }
     public void KilledBottomNPC(GameObject npc)
     {
-        print("D B");
         BottomNPCsKilled++;
 
         // TODO some more stuff
