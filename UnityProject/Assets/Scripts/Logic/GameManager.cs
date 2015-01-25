@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour {
         DestroyThreadQueue();
     }
 
-    public void KillTopNPC(GameObject npc)
+    public void KilledTopNPC(GameObject npc)
     {
         TopNPCsKilled++;
 
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour {
             StartCoroutine(DelayedSpawnNPC(TopNPCs, TopSpawnPoints));
         }
     }
-    public void KillBottomNPC(GameObject npc)
+    public void KilledBottomNPC(GameObject npc)
     {
         BottomNPCsKilled++;
 
