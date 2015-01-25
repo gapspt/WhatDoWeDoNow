@@ -34,6 +34,8 @@ public class Player : MonoBehaviour {
     public float health = 100;
     
 	public GameObject particleObject;
+	
+	private bool _doJump = false;
 		
   void Awake()
     {
@@ -118,10 +120,11 @@ public class Player : MonoBehaviour {
         }
 
         // we can only jump whilst grounded
-        if (_controller.isGrounded && _inputController.justPressed(PlayerController.ACTIONS.JUMP))
+        if (_doJump || (_controller.isGrounded && _inputController.justPressed(PlayerController.ACTIONS.JUMP)))
         {
-            _velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
-            //_animator.Play(Animator.StringToHash("Jump"));
+			_velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
+			//_animator.Play(Animator.StringToHash("Jump"));
+			_doJump = false;
         }
 
         // apply horizontal speed smoothing it
@@ -132,6 +135,12 @@ public class Player : MonoBehaviour {
         _velocity.y += gravity * Time.deltaTime;
 
         _controller.move(_velocity * Time.deltaTime);
+	}
+	
+	
+	public void doJump()
+	{
+		_doJump = true;
 	}
 	
 	
