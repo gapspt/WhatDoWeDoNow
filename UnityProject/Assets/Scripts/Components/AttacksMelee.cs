@@ -28,7 +28,7 @@ public class AttacksMelee : Attack {
 	
 	private IEnumerator clearAttackCounter() {
 		yield return new WaitForSeconds(0.5f);
-		Debug.Log ("clearAttackCounter");
+		//Debug.Log ("clearAttackCounter");
 		counter = 0;
 	}
 	
