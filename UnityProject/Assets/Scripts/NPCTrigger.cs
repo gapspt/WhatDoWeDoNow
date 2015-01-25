@@ -54,7 +54,6 @@ public class NPCTrigger : MonoBehaviour {
 
     private bool ShouldDoAction(bool movingLeft)
     {
-        print("movingLeft " + movingLeft + " FromLeft " + FromLeft + " FromRight " + FromRight + " GoLeft " + GoLeft + " GoRight " + GoRight);
         return ((!movingLeft && FromLeft) || (movingLeft && FromRight)) && Random.Range(0.0f, 1.0f) <= Probability;
     }
 }
