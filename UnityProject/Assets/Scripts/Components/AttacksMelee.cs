@@ -8,7 +8,7 @@ public class AttacksMelee : Attack {
 	public float duration = 0.1f;
 	public int counter = 0;
 	
-	public float attackDamage = 40;
+	public float attackDamage = 10;
 	
 	override protected void init()
 	{
