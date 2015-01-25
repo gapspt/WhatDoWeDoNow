@@ -121,7 +121,7 @@ public class Player : MonoBehaviour {
         if (_controller.isGrounded && _inputController.justPressed(PlayerController.ACTIONS.JUMP))
         {
             _velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
-            _animator.Play(Animator.StringToHash("Jump"));
+            //_animator.Play(Animator.StringToHash("Jump"));
         }
 
         // apply horizontal speed smoothing it

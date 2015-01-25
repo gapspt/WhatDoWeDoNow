@@ -27,18 +27,25 @@ public class AttacksMelee : Attack {
 	}
 	
 	private IEnumerator clearAttackCounter() {
-		yield return new WaitForSeconds(5);
+		yield return new WaitForSeconds(0.5f);
 		Debug.Log ("clearAttackCounter");
 		counter = 0;
 	}
 	
 	override public void onAttackTrigger()
 	{	
-		counter = (counter + 1)%5 + 1;
-		if (!_player.isAttacking && counter <= 5){
+		if (!_player.isAttacking){
+			counter = (counter + 1)%3;	
+			if (counter == 2) {
+				_animator.Play(Animator.StringToHash("attack5"));
+			}else {
+				_animator.Play(Animator.StringToHash("attack1"));
+			}
+		}
+		/*if (!_player.isAttacking && counter <= 5){
 			Debug.Log("animation attack"+counter);
 			_animator.Play(Animator.StringToHash("attack"+counter));
-		}
+		}*/
 		
 		_player.isAttacking = true;
 		
