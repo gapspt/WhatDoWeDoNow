@@ -17,7 +17,28 @@ public class GameManager : MonoBehaviour {
     public int BottomNPCsKilled = 0;
 
     public int SpawnExtraFrequency = 5;
-
+    
+    public static GameManager instance;
+    public int score = 0;
+   
+	public static void heavenScores(){
+		GameManager.instance.score -= 1;
+	}
+	
+	public static void hellScores(){
+		GameManager.instance.score += 1;
+	}
+	
+	public static int getScore(){
+		return instance.score;
+		//return instance.BottomNPCsKilled - instance.TopNPCsKilled;
+	}
+	
+	void Start()
+	{
+		instance = this;
+	}
+	
     void Awake()
     {
         if (Instance == null)
