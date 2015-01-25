@@ -60,10 +60,12 @@ public class AttacksMelee : Attack {
             Player player = col.gameObject.GetComponent<Player>();
             if (player)
             {
-            	if (player.tag == "angel"){
-            		GameManager.heavenScores();
-            	} else {
-					GameManager.hellScores();
+            	if (player.typeOfPlayer == Player.TypeOfPlayer.PLAYER){
+            		if (player.tag == "angel"){
+            			GameManager.heavenScores();
+            		} else {
+						GameManager.hellScores();
+            		}
             	}
                 player.attack(attackDamage);
             }
