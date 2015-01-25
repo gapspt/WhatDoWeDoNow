@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour {
     public int TopNPCsKilled = 0;
     public int BottomNPCsKilled = 0;
 
+    public int SpawnExtraFrequency = 5;
+
     void Awake()
     {
         if (Instance == null)
@@ -52,26 +54,28 @@ public class GameManager : MonoBehaviour {
 
     public void KilledTopNPC(GameObject npc)
     {
+        print("D T");
         TopNPCsKilled++;
 
         // TODO some more stuff
 
         StartCoroutine(DelayedSpawnNPC(TopNPCs, TopSpawnPoints));
 
-        if (TopNPCsKilled % 5 == 0)
+        if (TopNPCsKilled % SpawnExtraFrequency == 0)
         {
             StartCoroutine(DelayedSpawnNPC(TopNPCs, TopSpawnPoints));
         }
     }
     public void KilledBottomNPC(GameObject npc)
     {
+        print("D B");
         BottomNPCsKilled++;
 
         // TODO some more stuff
 
         StartCoroutine(DelayedSpawnNPC(BottomNPCs, BottomSpawnPoints));
 
-        if (BottomNPCsKilled % 10 == 0)
+        if (BottomNPCsKilled % SpawnExtraFrequency == 0)
         {
             StartCoroutine(DelayedSpawnNPC(BottomNPCs, BottomSpawnPoints));
         }
