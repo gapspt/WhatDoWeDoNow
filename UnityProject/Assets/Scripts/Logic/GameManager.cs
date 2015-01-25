@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
     public GameObject[] TopNPCs;
     public GameObject[] BottomNPCs;
     public GameObject[] HeavenMiddleNPCs;
-	public GameObject[] HellMiddleNPCs;
+    public GameObject[] HellMiddleNPCs;
 
     public int TopNPCsKilled = 0;
     public int BottomNPCsKilled = 0;
@@ -24,32 +24,32 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance;
     public int score = 0;
    
-	public static void heavenScores(){
-		GameManager.Instance.score -= 1;
-		
-		checkScore();
-	}
-	
-	public static void hellScores(){
-		GameManager.Instance.score += 1;
-		
-		checkScore();
-	}
-	
-	private static void checkScore()
-	{
-		if (getScore() > 100){
-			Debug.Log ("Hell wins");
-		} else if (getScore() < -100) {
-			Debug.Log ("Heaven wins");
-		}
-	}
-	
-	public static int getScore(){
-		return Instance.score;
-		//return instance.BottomNPCsKilled - instance.TopNPCsKilled;
-	}
-	
+    public static void heavenScores(){
+        GameManager.Instance.score -= 1;
+        
+        checkScore();
+    }
+    
+    public static void hellScores(){
+        GameManager.Instance.score += 1;
+        
+        checkScore();
+    }
+    
+    private static void checkScore()
+    {
+        if (getScore() > 100){
+            Debug.Log ("Hell wins");
+        } else if (getScore() < -100) {
+            Debug.Log ("Heaven wins");
+        }
+    }
+    
+    public static int getScore(){
+        return Instance.score;
+        //return instance.BottomNPCsKilled - instance.TopNPCsKilled;
+    }
+    
     void Awake()
     {
         if (Instance == null)
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour {
             StartCoroutine(DelayedSpawnNPC(TopNPCs, TopSpawnPoints));
         }
         
-		StartCoroutine(DelayedSpawnNPC(HeavenMiddleNPCs, MiddleSpawnPoints));
+        StartCoroutine(DelayedSpawnNPC(HeavenMiddleNPCs, MiddleSpawnPoints));
     }
     public void KilledBottomNPC(GameObject npc)
     {
@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour {
             StartCoroutine(DelayedSpawnNPC(BottomNPCs, BottomSpawnPoints));
         }
         
-		StartCoroutine(DelayedSpawnNPC(HellMiddleNPCs, MiddleSpawnPoints));
+        StartCoroutine(DelayedSpawnNPC(HellMiddleNPCs, MiddleSpawnPoints));
     }
 
     private IEnumerator DelayedSpawnNPC(GameObject[] npcs, Transform[] spawnPoints)
@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour {
 
     #region Action Queue
 
-    private const int HandleQueueThreads = 4;
+    private const int HandleQueueThreads = 1;
     private static Queue<Action> queue = null;
     private static object queueLock = new object();
 
