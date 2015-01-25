@@ -14,7 +14,6 @@ public class UpdateWithScore : MonoBehaviour {
 		if ((GameManager.getScore()) != 0){
 			newX = ((GameManager.getScore()) * 5.94f)/100f; 
 		} 
-		Debug.Log ("new X = " + newX);
 		gameObject.transform.position = new Vector3(newX, gameObject.transform.position.y, gameObject.transform.position.z);
 	}
 }

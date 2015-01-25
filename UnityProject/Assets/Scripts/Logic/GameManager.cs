@@ -9,9 +9,12 @@ public class GameManager : MonoBehaviour {
 
     public Transform[] TopSpawnPoints;
     public Transform[] BottomSpawnPoints;
+    public Transform[] MiddleSpawnPoints;
 
     public GameObject[] TopNPCs;
     public GameObject[] BottomNPCs;
+    public GameObject[] HeavenMiddleNPCs;
+	public GameObject[] HellMiddleNPCs;
 
     public int TopNPCsKilled = 0;
     public int BottomNPCsKilled = 0;
@@ -22,34 +25,29 @@ public class GameManager : MonoBehaviour {
     public int score = 0;
    
 	public static void heavenScores(){
-		GameManager.instance.score -= 1;
+		GameManager.Instance.score -= 1;
 		
 		checkScore();
 	}
 	
 	public static void hellScores(){
-		GameManager.instance.score += 1;
+		GameManager.Instance.score += 1;
 		
 		checkScore();
 	}
 	
 	private static void checkScore()
 	{
-		if (getScore > 100){
+		if (getScore() > 100){
 			Debug.Log ("Hell wins");
-		} else if (getScore < -100) {
+		} else if (getScore() < -100) {
 			Debug.Log ("Heaven wins");
 		}
 	}
 	
 	public static int getScore(){
-		return instance.score;
+		return Instance.score;
 		//return instance.BottomNPCsKilled - instance.TopNPCsKilled;
-	}
-	
-	void Start()
-	{
-		instance = this;
 	}
 	
     void Awake()
@@ -99,6 +97,8 @@ public class GameManager : MonoBehaviour {
         {
             StartCoroutine(DelayedSpawnNPC(TopNPCs, TopSpawnPoints));
         }
+        
+		StartCoroutine(DelayedSpawnNPC(HeavenMiddleNPCs, MiddleSpawnPoints));
     }
     public void KilledBottomNPC(GameObject npc)
     {
@@ -113,6 +113,8 @@ public class GameManager : MonoBehaviour {
         {
             StartCoroutine(DelayedSpawnNPC(BottomNPCs, BottomSpawnPoints));
         }
+        
+		StartCoroutine(DelayedSpawnNPC(HellMiddleNPCs, MiddleSpawnPoints));
     }
 
     private IEnumerator DelayedSpawnNPC(GameObject[] npcs, Transform[] spawnPoints)
