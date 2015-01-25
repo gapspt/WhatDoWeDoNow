@@ -201,7 +201,7 @@ public class PlayerController : MonoBehaviour
         _state[ACTIONS.DOWN] |= inputDevice.Direction.Down;
         _state[ACTIONS.UP] |= inputDevice.Direction.Up;
         _state[ACTIONS.ATTACK_1] |= inputDevice.Action2.IsPressed;
-		_state[ACTIONS.ATTACK_2] |= inputDevice.Action3.IsPressed;
+        _state[ACTIONS.ATTACK_2] |= inputDevice.Action3.IsPressed;
     }
 
     void processKeyboard()
@@ -211,8 +211,8 @@ public class PlayerController : MonoBehaviour
         _state[ACTIONS.LEFT] |= Input.GetKey(ControllerMapping.Keyboards[controller].LEFT);
         _state[ACTIONS.RIGHT] |= Input.GetKey(ControllerMapping.Keyboards[controller].RIGHT);
         _state[ACTIONS.DOWN] |= Input.GetKey(ControllerMapping.Keyboards[controller].DOWN);
-		_state[ACTIONS.ATTACK_1] |= Input.GetKey(ControllerMapping.Keyboards[controller].ATTACK_1);
-		_state[ACTIONS.ATTACK_2] |= Input.GetKey(ControllerMapping.Keyboards[controller].ATTACK_2);
+        _state[ACTIONS.ATTACK_1] |= Input.GetKey(ControllerMapping.Keyboards[controller].ATTACK_1);
+        _state[ACTIONS.ATTACK_2] |= Input.GetKey(ControllerMapping.Keyboards[controller].ATTACK_2);
     }
 
     public bool GetAction(ACTIONS action)
