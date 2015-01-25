@@ -96,7 +96,7 @@ public class NPCController : MonoBehaviour
 
         goUp = false;
         goDown = false;
-        doJump = !doJump;
+        //doJump = !doJump;
         doAttack1 = !doAttack1;
         doAttack2 = false;
     }
