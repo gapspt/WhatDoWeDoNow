@@ -141,6 +141,9 @@ public class GameManager : MonoBehaviour {
     public void StartNewGame()
     {
         Application.LoadLevel("GameScene");
+        TopNPCsKilled = 0;
+        BottomNPCsKilled = 0;
+        score = 0;
         StartCoroutine(DelayedSpawnNPC(TopNPCs, TopSpawnPoints));
         StartCoroutine(DelayedSpawnNPC(BottomNPCs, BottomSpawnPoints));
     }

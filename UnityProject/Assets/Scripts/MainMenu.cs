@@ -2,9 +2,9 @@
 using System.Collections;
 
 public class MainMenu : MonoBehaviour {
-	void Update () {
-		if (Input.anyKey) {
-			Application.LoadLevel (1);
-		}
-	}
+    void Update () {
+        if (Input.anyKey) {
+            GameManager.Instance.StartNewGame();
+        }
+    }
 }

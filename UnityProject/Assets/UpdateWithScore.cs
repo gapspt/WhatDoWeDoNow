@@ -12,7 +12,7 @@ public class UpdateWithScore : MonoBehaviour {
 	void Update () {
 		float newX = 0;
 		if ((GameManager.getScore()) != 0){
-			newX = ((GameManager.getScore()) * 8f)/100f; 
+            newX = ((GameManager.getScore()) * 5.94f) / 100f; 
 		} 
 		gameObject.transform.position = new Vector3(newX, gameObject.transform.position.y, gameObject.transform.position.z);
 	}
