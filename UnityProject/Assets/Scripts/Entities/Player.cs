@@ -199,6 +199,8 @@ public class Player : MonoBehaviour {
             }
 
 			Destroy(gameObject);
+		} else  {
+			Application.LoadLevel(0);
 		}
 	}
 
