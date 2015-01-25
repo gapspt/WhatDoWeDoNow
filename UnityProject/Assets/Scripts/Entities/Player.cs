@@ -153,9 +153,9 @@ public class Player : MonoBehaviour {
 		float dirX;
 		float dirY;
 		GameObject particle;
-		for(int i=0;i<30;i++){
-			dirX = Random.Range(-1.0f, 1.0f) * 100;
-			dirY = Random.Range(0.0f, 1.0f) * 1000;
+		for(int i=0;i<100;i++){
+			dirX = Random.Range(-1.0f, 1.0f) * 200;
+			dirY = Random.Range(0.0f, 1.0f) * 500;
 			particle = ((GameObject) Instantiate(particleObject, transform.position, Quaternion.identity));
 			particle.GetComponent<Rigidbody2D>().AddForce(new Vector2(dirX, dirY));
 			
