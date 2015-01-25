@@ -16,6 +16,7 @@ public class BaseKeyboard {
         BaseKeyboard kb = new BaseKeyboard();
 
         kb.JUMP = KeyCode.UpArrow;
+        kb.JUMP = KeyCode.Space;
         kb.LEFT = KeyCode.LeftArrow;
         kb.RIGHT = KeyCode.RightArrow;
         kb.DOWN = KeyCode.DownArrow;
