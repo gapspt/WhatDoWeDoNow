@@ -55,11 +55,13 @@ public class AttacksMelee : Attack {
 	
 	void OnTriggerEnter2D(Collider2D col)
 	{
-		Debug.Log ("colliding with " + col.gameObject.name + " tag:" + col.gameObject.tag + " attack:" + attackTag);
-		
+   	    //Debug.Log ("colliding with " + col.gameObject.name + " tag:" + col.gameObject.tag + " attack:" + attackTag);
 		if (col.gameObject.tag == attackTag){
-			col.gameObject.GetComponent<Player>().attack(attackDamage);
+            Player player = col.gameObject.GetComponent<Player>();
+            if (player)
+            {
+                player.attack(attackDamage);
+            }
 		}
-		//Destroy(col.gameObject);
 	}
 }
