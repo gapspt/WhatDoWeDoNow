@@ -8,8 +8,14 @@ public class Player : MonoBehaviour {
 		PLAYER,
 		NPC
 	}
-	
-	public TypeOfPlayer typeOfPlayer = TypeOfPlayer.PLAYER;
+    public enum TeamOfPlayer
+    {
+        TOP,
+        BOTTOM
+    }
+
+    public TypeOfPlayer typeOfPlayer = TypeOfPlayer.PLAYER;
+    public TeamOfPlayer teamOfPlayer = TeamOfPlayer.TOP;
 	
 		// movement config
     public float gravity = -25f;
@@ -183,6 +189,15 @@ public class Player : MonoBehaviour {
 	{
 		if (typeOfPlayer == TypeOfPlayer.NPC)
 		{
+            if (teamOfPlayer == TeamOfPlayer.TOP)
+            {
+                GameManager.Instance.KilledTopNPC(gameObject);
+            }
+            else if (teamOfPlayer == TeamOfPlayer.BOTTOM)
+            {
+                GameManager.Instance.KilledBottomNPC(gameObject);
+            }
+
 			Destroy(gameObject);
 		}
 	}

@@ -5,7 +5,8 @@ using System.Threading;
 
 public class NPCController : MonoBehaviour
 {
-    private PlayerController controller;
+    private PlayerController playerController;
+    private CharacterController2D characterController;
 
     private bool isProcessingAI = false;
 
@@ -14,7 +15,8 @@ public class NPCController : MonoBehaviour
 
     void Awake()
     {
-        controller = GetComponent<PlayerController>();
+        playerController = GetComponent<PlayerController>();
+        characterController = GetComponent<CharacterController2D>();
     }
 
     void Update () {
@@ -33,35 +35,35 @@ public class NPCController : MonoBehaviour
 
     private void PerformAI()
     {
-        if (controller.WaitForProcessingInput)
+        if (playerController.WaitForProcessingInput)
         {
             return;
         }
 
         isProcessingAI = true;
 
-        bool goLeft = controller.GetAction(PlayerController.ACTIONS.LEFT);
-        bool goRight = controller.GetAction(PlayerController.ACTIONS.RIGHT);
-        bool goUp = controller.GetAction(PlayerController.ACTIONS.UP);
-        bool goDown = controller.GetAction(PlayerController.ACTIONS.DOWN);
-        bool doJump = controller.GetAction(PlayerController.ACTIONS.JUMP);
-        bool doAttack1 = controller.GetAction(PlayerController.ACTIONS.ATTACK_1);
-        bool doAttack2 = controller.GetAction(PlayerController.ACTIONS.ATTACK_2);
+        bool goLeft = playerController.GetAction(PlayerController.ACTIONS.LEFT);
+        bool goRight = playerController.GetAction(PlayerController.ACTIONS.RIGHT);
+        bool goUp = playerController.GetAction(PlayerController.ACTIONS.UP);
+        bool goDown = playerController.GetAction(PlayerController.ACTIONS.DOWN);
+        bool doJump = playerController.GetAction(PlayerController.ACTIONS.JUMP);
+        bool doAttack1 = playerController.GetAction(PlayerController.ACTIONS.ATTACK_1);
+        bool doAttack2 = playerController.GetAction(PlayerController.ACTIONS.ATTACK_2);
 
         // Do real AI
         ProcessAI(ref goLeft, ref goRight, ref goUp, ref goDown, ref doJump, ref doAttack1, ref doAttack2);
 
         if (tsEnabled)
         {
-            controller.SetAction(PlayerController.ACTIONS.LEFT, goLeft);
-            controller.SetAction(PlayerController.ACTIONS.RIGHT, goRight);
-            controller.SetAction(PlayerController.ACTIONS.UP, goUp);
-            controller.SetAction(PlayerController.ACTIONS.DOWN, goDown);
-            controller.SetAction(PlayerController.ACTIONS.JUMP, doJump);
-            controller.SetAction(PlayerController.ACTIONS.ATTACK_1, doAttack1);
-            controller.SetAction(PlayerController.ACTIONS.ATTACK_2, doAttack2);
+            playerController.SetAction(PlayerController.ACTIONS.LEFT, goLeft);
+            playerController.SetAction(PlayerController.ACTIONS.RIGHT, goRight);
+            playerController.SetAction(PlayerController.ACTIONS.UP, goUp);
+            playerController.SetAction(PlayerController.ACTIONS.DOWN, goDown);
+            playerController.SetAction(PlayerController.ACTIONS.JUMP, doJump);
+            playerController.SetAction(PlayerController.ACTIONS.ATTACK_1, doAttack1);
+            playerController.SetAction(PlayerController.ACTIONS.ATTACK_2, doAttack2);
         }
-        controller.WaitForProcessingInput = true;
+        playerController.WaitForProcessingInput = true;
 
         isProcessingAI = false;
     }
@@ -69,11 +71,32 @@ public class NPCController : MonoBehaviour
     private void ProcessAI(ref bool goLeft, ref bool goRight, ref bool goUp, ref bool goDown,
         ref bool doJump, ref bool doAttack1, ref bool doAttack2)
     {
-        goLeft = true;
-        goRight = false;
+        if (goLeft && characterController.collisionState.left)
+        {
+            goRight = true;
+            goLeft = false;
+        }
+        if (goRight && characterController.collisionState.right)
+        {
+            goLeft = true;
+            goRight = false;
+        }
+
+        if (goLeft && goRight)
+        {
+            goLeft = true;
+            goRight = false;
+        }
+
+        if (!goLeft && !goRight)
+        {
+            goLeft = true;
+            goRight = false;
+        }
+
         goUp = false;
         goDown = false;
-        doJump = !doJump;
+        //doJump = !doJump;
         doAttack1 = !doAttack1;
         doAttack2 = false;
     }
