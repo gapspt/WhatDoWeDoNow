@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Player : MonoBehaviour {
-	
+
 	public enum TypeOfPlayer
 	{
 		PLAYER,
@@ -16,7 +16,7 @@ public class Player : MonoBehaviour {
 
     public TypeOfPlayer typeOfPlayer = TypeOfPlayer.PLAYER;
     public TeamOfPlayer teamOfPlayer = TeamOfPlayer.TOP;
-	
+
 		// movement config
     public float gravity = -25f;
     public float runSpeed = 8f;
@@ -34,16 +34,16 @@ public class Player : MonoBehaviour {
     private Animator _animator;
     private RaycastHit2D _lastControllerColliderHit;
     public Vector3 _velocity;
-    
+
     public bool isAttacking = false;
-    
+
     public float health = 100;
-    
+
 	public GameObject particleObject;
-	
+
 	private bool _doJump = false;
 	private bool _doDash = false;
-		
+
   void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -81,7 +81,7 @@ public class Player : MonoBehaviour {
     }
 
     #endregion
-    
+
     // Update is called once per frame
     void Update () {
         // grab our current _velocity to use as a base for all calculations
@@ -95,7 +95,7 @@ public class Player : MonoBehaviour {
             normalizedHorizontalSpeed = 1;
             if (transform.localScale.x < 0f)
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-			
+
             if (_controller.isGrounded && !isAttacking)
                 _animator.Play(Animator.StringToHash("Run"));
         }
@@ -113,7 +113,7 @@ public class Player : MonoBehaviour {
             normalizedHorizontalSpeed = 0;
 
             if (_controller.isGrounded)
-                
+
                 if (_inputController.UP)// pressed(PlayerController.ACTIONS.UP))
                 {
                     _animator.Play(Animator.StringToHash("LookUp"));
@@ -133,7 +133,7 @@ public class Player : MonoBehaviour {
 			//_animator.Play(Animator.StringToHash("Jump"));
 			_doJump = false;
         }
-        
+
 		if (_doDash){
 			_doDash = false;
 			_velocity.x += 50*transform.localScale.x;
@@ -148,34 +148,34 @@ public class Player : MonoBehaviour {
 
         _controller.move(_velocity * Time.deltaTime);
 	}
-	
-	
+
+
 	public void doJump()
 	{
 		_doJump = true;
 	}
-	
+
 	public void doDash()
 	{
 		_doDash = true;
 	}
-	
-	
+
+
 	void OnTriggerEnter(Collider other) {
 		Debug.Log ("on trigger enter parent");
-		
+
 	}
-	
+
 	void OnCollisionEnter2D(Collision2D col){
 		Debug.Log ("attack collision parent");
 	}
-	
+
 	public void shakeCamera()
 	{
 		Camera.main.GetComponent<CameraShake>().Shake();
-		
+
 		if (particleObject == null) return;
-		
+
 		float dirX;
 		float dirY;
 		GameObject particle;
@@ -184,10 +184,10 @@ public class Player : MonoBehaviour {
 			dirY = Random.Range(0.0f, 1.0f) * 500;
 			particle = ((GameObject) Instantiate(particleObject, transform.position, Quaternion.identity));
 			particle.GetComponent<Rigidbody2D>().AddForce(new Vector2(dirX, dirY));
-			
+
 		}
 	}
-	
+
 	public void attack(float damage)
 	{
 		health -= damage;
@@ -195,7 +195,7 @@ public class Player : MonoBehaviour {
 			kill();
 		}
 	}
-	
+
 	public void kill()
 	{
 		if (typeOfPlayer == TypeOfPlayer.NPC)
